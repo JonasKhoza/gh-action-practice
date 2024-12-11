@@ -8,6 +8,10 @@ app.get("/", (req, res)=> {
     res.send("Hit the main endpoint!")
 })
 
+app.post("/", (req, res)=> {
+    console.log(req.body)
+})
+
 app.listen(8000,()=> {
     console.log("App running on port 8000")
 })
