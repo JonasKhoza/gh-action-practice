@@ -32,8 +32,9 @@ jobs:
           run: npm install
         - name:
           run: echo "Running the test!"
+
         - name: Testing
-          run: echo "Running on port: $PORT"
+          run: echo "Running on port: ${{ env.PORT }}"
       
     deploy:
       runs_on: ubuntu-24.04
