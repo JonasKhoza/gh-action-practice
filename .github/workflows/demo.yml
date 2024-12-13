@@ -50,7 +50,8 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 18  
+          node-version: 18
+        id: download-node  #identifier fo this steps
 
       - name: Cache dependencies
         uses: actions/cache@v3
@@ -59,6 +60,7 @@ jobs:
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
 
       - name: Install dependencies
+        if: ${{ failure() }}  #run this step if the step with download-node returns failure. or we can use:steps.download-node.outcome == 'failure'. By default if above step failed, it does not run the below
         run: npm install
 
       - name: Deploy
