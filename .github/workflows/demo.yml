@@ -1,0 +1,57 @@
+name: Testing and Deeployment
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types: [opened, closed, synchronize]
+    base: # ensure the workflow only triggers for pull requests targeting the main branch
+      - main
+  workflow_dispatch:
+env:
+  PORT: 8000
+jobs:
+    test:
+      runs_on: ubuntu-latest
+      steps:
+        - name: Get code, then install the right tools(e.g., Nodejs, install dependencies), then we can run a test 
+          uses: actions/checkout@v3
+        
+        - name: Install Nodejs
+          uses: actions/setup-node@v3
+          with:
+            node-version: 18
+
+        - name: Cache dependencies
+          uses: actions/cache@v3
+          with:
+            path: ~/.npm
+            key: ${{ runner.os }}-node-${{ hashFiles("**/package-lock.json") }}
+        
+        - name: Install dependencies
+          run: npm install
+        - name:
+          run: echo "Running the test!"
+        - name: Testing
+          run: echo "Running on port: $PORT"
+      
+    deploy:
+      runs_on: ubuntu-24.04
+      needs: test
+      steps:
+        - name: Get code 
+          uses: actions/checkout@v3
+
+        - name: Cache dependencies
+          uses: actions/cache@v3
+          with:
+            path:  ~/.npm
+            key: ${{ runner.os }}-node-${{ hashFiles("**/package-lock.json") }}
+        
+        - name: Install dependencies
+          run: npm install
+
+        - name: Deploy
+          run: echo "Deploying the app on port: ${{ env.PORT }}"
+
+
