@@ -38,7 +38,7 @@ jobs:
         run: echo "Running the test!"
 
       - name: Display port
-        run: echo "Running on port: ${{ env.PORT }}"
+        #run: echo "Running on port: ${{ env.PORT }}"
 
   deploy:
     runs_on: ubuntu-latest
@@ -57,4 +57,4 @@ jobs:
         run: npm install
 
       - name: Deploy
-        run: echo "Deploying the app on port: ${{ env.PORT }}"
+        #run: echo "Deploying the app on port: ${{ env.PORT }}"
