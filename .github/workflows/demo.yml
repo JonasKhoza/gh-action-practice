@@ -15,7 +15,7 @@ env:
 
 jobs:
   test:
-    runs_on: ubuntu-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Check out code
         uses: actions/checkout@v3
@@ -41,7 +41,7 @@ jobs:
         run: "echo Running on port: ${{ env.PORT }}"  # Enclosed in double quotes
 
   deploy:
-    runs_on: ubuntu-latest
+    runs-on: ubuntu-latest
     needs: test
     steps:
       - name: Check out code
